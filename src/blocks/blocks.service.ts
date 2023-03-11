@@ -7,13 +7,10 @@ import { Blocks, BlocksDocument } from 'src/schemas/blocks.schema';
 export class BlocksService {
   constructor(
     @InjectModel('Blocks') private blocksModel: Model<BlocksDocument>, // @InjectModel('Blocks') private blocksModel: Model<BlocksDocument>,
-  ) {
-    this.print();
-  }
+  ) {}
 
-  async print(): Promise<Blocks> {
-    const sampleBlock = await this.blocksModel.findOne();
-
+  async findOne(): Promise<Blocks> {
+    const sampleBlock = this.blocksModel.findOne();
     return sampleBlock;
   }
 }
