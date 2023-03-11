@@ -26,6 +26,6 @@ COPY package.json yarn.lock ./
 
 RUN yarn
 
-COPY --from=builder /usr/src/app/dist ./dist
+COPY . .
 
 CMD [ "node", "dist/main.js" ]
