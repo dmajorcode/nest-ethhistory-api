@@ -6,6 +6,6 @@ export class BlocksController {
   constructor(private readonly blocksService: BlocksService) {}
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.blocksService.findOne(id);
+    return this.blocksService.findByHash(id);
   }
 }

@@ -3,8 +3,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { BlocksSchema } from 'src/schemas/blocks.schema';
 import { LogsSchema } from 'src/schemas/logs.schema';
 import { TxReceiptsSchema } from 'src/schemas/txReceipts.schema';
-import { BlocksController } from './blocks.controller';
-import { BlocksService } from './blocks.service';
+import { TxReceiptsController } from './tx-receipts.controller';
+import { TxReceiptsService } from './tx-receipts.service';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { BlocksService } from './blocks.service';
     ]),
     MongooseModule.forFeature([{ name: 'Logs', schema: LogsSchema }]),
   ],
-  controllers: [BlocksController],
-  providers: [BlocksService],
+  controllers: [TxReceiptsController],
+  providers: [TxReceiptsService],
 })
-export class BlocksModule {}
+export class TxReceiptsModule {}

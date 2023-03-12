@@ -9,6 +9,7 @@ import { BlocksModule } from './blocks/blocks.module';
 import { BlocksSchema } from './schemas/blocks.schema';
 import { LogsSchema } from './schemas/logs.schema';
 import { TxReceiptsSchema } from './schemas/txReceipts.schema';
+import { TxReceiptsModule } from './tx-receipts/tx-receipts.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { TxReceiptsSchema } from './schemas/txReceipts.schema';
       { name: 'TxReceipts', schema: TxReceiptsSchema },
     ]),
     MongooseModule.forFeature([{ name: 'Logs', schema: LogsSchema }]),
+    TxReceiptsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
