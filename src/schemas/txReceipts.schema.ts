@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument, Types } from 'mongoose';
 import { Logs } from './logs.schema';
 
 export type TxReceiptsDocument = HydratedDocument<TxReceipts>;
@@ -27,10 +27,11 @@ export class TxReceipts {
   @Prop()
   gasUsed: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Logs' })
-  logs: Logs[];
-  // @Prop()
-  // logs: string[];
+  /** TODO : TRY USING BSON **/
+  // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Logs' })
+  // logs: Logs[];
+  @Prop()
+  logs: string[];
 
   @Prop()
   logsBloom: string;

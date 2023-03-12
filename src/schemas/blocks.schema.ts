@@ -61,11 +61,11 @@ export class Blocks {
   @Prop()
   totalDifficulty: string;
 
-  // TODO : FIX BSON ERROR
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'TxReceipts' })
-  transactions: TxReceipts[];
-  // @Prop()
-  // transactions: string[];
+  /** TODO : TRY USING BSON **/
+  // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'TxReceipts' })
+  // transactions: TxReceipts[];
+  @Prop()
+  transactions: string[];
 
   @Prop()
   transactionsRoot: string;

@@ -40,8 +40,6 @@ export class BlocksService {
   async getBlock() {
     const blockNumbers: number[] = [];
 
-    // await this.logsModel.deleteMany({});
-    // await this.txReceiptsModel.deleteMany({});
     setInterval(async () => {
       const number = await BlocksService.provider.getBlockNumber();
       if (!blockNumbers.includes(number)) {
@@ -52,7 +50,7 @@ export class BlocksService {
         const checkBlock = '0x' + (blockNumbers.shift() - 12).toString(16);
         const blockInfo: blockResult = await getBlock(checkBlock);
         await this.getTx(blockInfo);
-        // await this.saveBlock(blockInfo);
+        await this.saveBlock(blockInfo);
       }
     }, 12000);
   }
