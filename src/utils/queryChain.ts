@@ -1,12 +1,6 @@
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
-import {
-  blockResponse,
-  blockResult,
-  txLog,
-  txResponse,
-  txResult,
-} from './interface';
+import { blockResponse, blockResult, txResponse, txResult } from './interface';
 
 export const getBlockInfo = async (block: string) => {
   try {
