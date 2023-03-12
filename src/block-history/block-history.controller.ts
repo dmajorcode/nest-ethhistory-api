@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { BlockHistoryService } from './block-history.service';
 import { CreateBlockHistoryDto } from './dto/create-block-history.dto';
 import { UpdateBlockHistoryDto } from './dto/update-block-history.dto';
@@ -23,7 +31,10 @@ export class BlockHistoryController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBlockHistoryDto: UpdateBlockHistoryDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateBlockHistoryDto: UpdateBlockHistoryDto,
+  ) {
     return this.blockHistoryService.update(+id, updateBlockHistoryDto);
   }
 

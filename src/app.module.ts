@@ -6,6 +6,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BlockHistoryModule } from './block-history/block-history.module';
 import { BlocksModule } from './blocks/blocks.module';
+import { BlocksSchema } from './schemas/blocks.schema';
+import { LogsSchema } from './schemas/logs.schema';
+import { TxReceiptsSchema } from './schemas/txReceipts.schema';
 
 @Module({
   imports: [
@@ -14,6 +17,11 @@ import { BlocksModule } from './blocks/blocks.module';
     LoggerModule.forRoot(),
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(process.env.MONGO_URI),
+    MongooseModule.forFeature([{ name: 'Blocks', schema: BlocksSchema }]),
+    MongooseModule.forFeature([
+      { name: 'TxReceipts', schema: TxReceiptsSchema },
+    ]),
+    MongooseModule.forFeature([{ name: 'Logs', schema: LogsSchema }]),
   ],
   controllers: [AppController],
   providers: [AppService],

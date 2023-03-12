@@ -8,7 +8,7 @@ import {
   txResult,
 } from './interface';
 
-export const getBlock = async (block: string) => {
+export const getBlockInfo = async (block: string) => {
   try {
     axiosRetry(axios, { retries: 1000 });
     const data = await axios.post(

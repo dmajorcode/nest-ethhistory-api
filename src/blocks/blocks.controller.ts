@@ -1,11 +1,11 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { BlocksService } from './blocks.service';
 
 @Controller('blocks')
 export class BlocksController {
   constructor(private readonly blocksService: BlocksService) {}
-  @Get()
-  findOne() {
-    return this.blocksService.findOne();
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.blocksService.findOne(id);
   }
 }

@@ -1,87 +1,136 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import axios from 'axios';
-import axiosRetry from 'axios-retry';
+
 import { ethers } from 'ethers';
 import { Model } from 'mongoose';
-import { check } from 'prettier';
-import { Blocks, BlocksDocument } from 'src/schemas/blocks.schema';
+
+import { BlocksDocument } from 'src/schemas/blocks.schema';
 import { LogsDocument } from 'src/schemas/logs.schema';
 import { TxReceiptsDocument } from 'src/schemas/txReceipts.schema';
-import { getBlock, getTxReceipt } from 'src/utils/getBlocks';
-import {
-  blockResponse,
-  blockResult,
-  txLog,
-  txResult,
-} from 'src/utils/interface';
 
 @Injectable()
 export class BlocksService {
   public static provider: ethers.providers.InfuraProvider;
   constructor(
-    @InjectModel('Blocks') private blocksModel: Model<BlocksDocument>,
+    @InjectModel('Blocks') private readonly blocksModel: Model<BlocksDocument>,
     @InjectModel('TxReceipts')
-    private txReceiptsModel: Model<TxReceiptsDocument>,
-    @InjectModel('Logs') private logsModel: Model<LogsDocument>,
-  ) {
-    BlocksService.provider = new ethers.providers.InfuraProvider(
-      process.env.NETWORK,
-      process.env.INFURA_API_KEY,
-    );
-    this.getBlock();
-  }
+    private readonly txReceiptsModel: Model<TxReceiptsDocument>,
+    @InjectModel('Logs') private readonly logsModel: Model<LogsDocument>,
+  ) {}
 
-  async findOne(): Promise<Blocks> {
-    const sampleBlock = this.blocksModel.findOne();
-    return sampleBlock;
-  }
+  async findOne(id: string): Promise<any | string> {
+    const sampleBlock = await this.blocksModel.findOne({ hash: id });
 
-  async getBlock() {
-    const blockNumbers: number[] = [];
+    if (sampleBlock) {
+      const data = await this.blocksModel.aggregate([
+        {
+          $match: {
+            hash: '0x9b9896720c9ce2d224397d590b5b7f69c4fff4ee53d2d72f4ce1e4da32620287',
+          },
+        },
+        {
+          $unwind: {
+            path: '$transactions',
+          },
+        },
+        {
+          $lookup: {
+            from: 'txreceipts',
+            let: {
+              transactions: '$transactions',
+            },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $eq: ['$$transactions', '$transactionHash'],
+                  },
+                },
+              },
+            ],
+            as: 'aggregate',
+          },
+        },
+        {
+          $unwind: {
+            path: '$aggregate',
+          },
+        },
+        {
+          $group: {
+            _id: '$hash',
+            baseFeePerGas: {
+              $first: '$baseFeePerGas',
+            },
+            difficulty: {
+              $first: '$difficulty',
+            },
+            extraData: {
+              $first: '$extraData',
+            },
+            gasLimit: {
+              $first: '$gasLimit',
+            },
+            gasUsed: {
+              $first: '$gasUsed',
+            },
+            hash: {
+              $first: '$hash',
+            },
+            logsBloom: {
+              $first: '$logsBloom',
+            },
+            miner: {
+              $first: '$miner',
+            },
+            mixHash: {
+              $first: '$mixHash',
+            },
+            nonce: {
+              $first: '$nonce',
+            },
+            number: {
+              $first: '$number',
+            },
+            parentHash: {
+              $first: '$parentHash',
+            },
+            receiptsRoot: {
+              $first: '$receiptsRoot',
+            },
+            sha3Uncles: {
+              $first: '$sha3Uncles',
+            },
+            size: {
+              $first: '$size',
+            },
+            stateRoot: {
+              $first: '$stateRoot',
+            },
+            timestamp: {
+              $first: '$timestamp',
+            },
+            totalDifficulty: {
+              $first: '$totalDifficulty',
+            },
+            transactions: {
+              $push: '$aggregate',
+            },
+            transactionsRoot: {
+              $first: '$transactionsRoot',
+            },
+            uncles: {
+              $first: '$uncles',
+            },
+            __v: {
+              $first: '$__v',
+            },
+          },
+        },
+      ]);
 
-    setInterval(async () => {
-      const number = await BlocksService.provider.getBlockNumber();
-      if (!blockNumbers.includes(number)) {
-        blockNumbers.push(number);
-
-        /** reorg depth mostly 1 block and max 12 blocks **/
-        // TODO : number는 계속 받고 숫자가 작아지면 reorg인 것으로 추가 수정
-        const checkBlock = '0x' + (blockNumbers.shift() - 12).toString(16);
-        const blockInfo: blockResult = await getBlock(checkBlock);
-        await this.getTx(blockInfo);
-        await this.saveBlock(blockInfo);
-      }
-    }, 12000);
-  }
-  async saveBlock(blockInfo: blockResult) {
-    const created = new this.blocksModel(blockInfo);
-    created.save();
-  }
-
-  async getTx(blockInfo: blockResult) {
-    const resTx: string[] = blockInfo.transactions;
-
-    resTx.forEach(async (tx: string) => {
-      const txInfo = await getTxReceipt(tx);
-      await this.saveTx(txInfo);
-      await this.getLog(txInfo);
-    });
-  }
-
-  async saveTx(txInfo: txResult) {
-    const created = new this.txReceiptsModel(txInfo);
-    created.save();
-  }
-
-  async getLog(txInfo: txResult) {
-    const resLog: txLog[] = txInfo.logs;
-    resLog.forEach(async (log: txLog) => {
-      await this.saveLog(log);
-    });
-  }
-  async saveLog(log: txLog) {
-    const created = new this.logsModel(log);
-    created.save();
+      return data;
+    }
+    return 'InValid Block Hash';
   }
 }
