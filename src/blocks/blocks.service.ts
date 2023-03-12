@@ -25,7 +25,7 @@ export class BlocksService {
       const data = await this.blocksModel.aggregate([
         {
           $match: {
-            hash: '0x9b9896720c9ce2d224397d590b5b7f69c4fff4ee53d2d72f4ce1e4da32620287',
+            hash: id,
           },
         },
         {
