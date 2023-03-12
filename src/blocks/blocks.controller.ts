@@ -4,8 +4,8 @@ import { BlocksService } from './blocks.service';
 @Controller('blocks')
 export class BlocksController {
   constructor(private readonly blocksService: BlocksService) {}
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get('/hash/:id')
+  findByHash(@Param('id') id: string) {
     return this.blocksService.findByHash(id);
   }
 }

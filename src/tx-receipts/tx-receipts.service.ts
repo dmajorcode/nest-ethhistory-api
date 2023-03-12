@@ -24,4 +24,30 @@ export class TxReceiptsService {
     }
     return 'Invalid Transaction Hash';
   }
+
+  async findByAddress(
+    from: string | undefined,
+    to: string | undefined,
+  ): Promise<any | string> {
+    const targetTx =
+      from != undefined && to != undefined
+        ? await this.txReceiptsModel.find({
+            from,
+            to,
+          })
+        : from != undefined
+        ? await this.txReceiptsModel.find({
+            from,
+          })
+        : to != undefined
+        ? await this.txReceiptsModel.find({
+            to,
+          })
+        : null;
+
+    if (targetTx && targetTx.length > 0) {
+      return targetTx;
+    }
+    return 'Invalid Contract Address';
+  }
 }
