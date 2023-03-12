@@ -48,6 +48,6 @@ export class TxReceiptsService {
     if (targetTx && targetTx.length > 0) {
       return targetTx;
     }
-    return 'Invalid Contract Address';
+    return 'Invalid Contractaddress';
   }
 }
