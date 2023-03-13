@@ -9,6 +9,11 @@ export const formatDBStatMessage = async (
   return text;
 };
 
+export const formatServerStatMessage = async (message: string) => {
+  const text = `---------------------------------------\n[ Server Status ]\n Server is currently ${message}\n---------------------------------------`;
+  return text;
+};
+
 export const sendSlack = async (
   web: WebClient,
   text: string,

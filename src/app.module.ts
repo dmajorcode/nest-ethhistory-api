@@ -11,7 +11,7 @@ import { LogsSchema } from './schemas/logs.schema';
 import { TxReceiptsSchema } from './schemas/txReceipts.schema';
 import { SlackBotModule } from './slack-bot/slack-bot.module';
 import { TxReceiptsModule } from './tx-receipts/tx-receipts.module';
-
+import { HealthModule } from './health/health.module';
 @Module({
   imports: [
     BlocksModule,
@@ -27,6 +27,7 @@ import { TxReceiptsModule } from './tx-receipts/tx-receipts.module';
     TxReceiptsModule,
     SlackBotModule,
     ChainHistoryBotModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
