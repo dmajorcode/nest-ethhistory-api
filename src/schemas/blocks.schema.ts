@@ -1,7 +1,5 @@
-import { TransactionReceipt } from '@ethersproject/providers';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
-import { TxReceipts } from './txReceipts.schema';
+import { HydratedDocument } from 'mongoose';
 
 export type BlocksDocument = HydratedDocument<Blocks>;
 
@@ -61,9 +59,6 @@ export class Blocks {
   @Prop()
   totalDifficulty: string;
 
-  /** TODO : TRY USING BSON **/
-  // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'TxReceipts' })
-  // transactions: TxReceipts[];
   @Prop()
   transactions: string[];
 

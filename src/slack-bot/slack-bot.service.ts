@@ -18,7 +18,6 @@ export class SlackBotService {
     private txReceiptsModel: Model<TxReceiptsDocument>,
     @InjectModel('Logs') private logsModel: Model<LogsDocument>,
   ) {
-    /** REPLACE HERE **/
     this.DBStatusBot = new WebClient(process.env.SLACK_DB_STAT_BOT_TOKEN);
 
     /** Sending slack every 5 minutes **/

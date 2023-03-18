@@ -21,7 +21,7 @@ export class ChainHistoryBotService {
       process.env.NETWORK,
       process.env.INFURA_API_KEY,
     );
-    /** TODO : connection test and delete same function in appservice **/
+
     /** Need to denote this to fetch block data **/
     this.getBlock();
   }
@@ -34,7 +34,6 @@ export class ChainHistoryBotService {
           blockNumbers.push(number);
 
           /** reorg depth mostly 1 block and max 12 blocks **/
-          // TODO : number는 계속 받고 숫자가 작아지면 reorg인 것으로 추가 수정
           const checkBlock = '0x' + (blockNumbers.shift() - 12).toString(16);
           const blockInfo: blockResult = await getBlockInfo(checkBlock);
           await this.getTx(blockInfo);

@@ -21,7 +21,6 @@ export const sendSlack = async (
 ) => {
   try {
     await web.chat.postMessage({
-      /** REPLACE HERE **/
       channel: '#' + channelName,
       text: text,
     });
