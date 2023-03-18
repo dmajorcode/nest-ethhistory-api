@@ -27,10 +27,3 @@ $ yarn run start:dev
 # production mode
 $ yarn run start:prod
 ```
-
-  <br/>
-  <br/>
-
-# Others
-
-slack token and channel id are in slack-bot.service.ts. You can look for /** REPLACE HERE **/ tag for specific location.
