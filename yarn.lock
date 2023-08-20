@@ -3147,10 +3147,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bson@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "bson@npm:5.0.1"
-  checksum: c8b028cdad57ab967d8deb4895d1341d84cd350c20137e9949ebd7924e408e81921fa5fcd17e07bc3aa3bca99a49208e95f0ab9606686b980af2eaf798b56e1f
+"bson@npm:^5.4.0":
+  version: 5.4.0
+  resolution: "bson@npm:5.4.0"
+  checksum: 1c07e3d09f139d414bd226bf7f4e9aaa7a726e0c9718c55b53bb23ffa2805cac8b66e4fa46b424c73a35c6e292ed5f7432df5c76ea5d08052642b2ac9e0399e3
   languageName: node
   linkType: hard
 
@@ -4596,7 +4596,7 @@ __metadata:
 
 "fsevents@patch:fsevents@^2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -6265,17 +6265,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mongodb@npm:5.1.0":
-  version: 5.1.0
-  resolution: "mongodb@npm:5.1.0"
+"mongodb@npm:5.7.0":
+  version: 5.7.0
+  resolution: "mongodb@npm:5.7.0"
   dependencies:
-    bson: ^5.0.1
+    bson: ^5.4.0
     mongodb-connection-string-url: ^2.6.0
     saslprep: ^1.0.3
     socks: ^2.7.1
   peerDependencies:
     "@aws-sdk/credential-providers": ^3.201.0
-    mongodb-client-encryption: ^2.3.0
+    "@mongodb-js/zstd": ^1.1.0
+    kerberos: ^2.0.1
+    mongodb-client-encryption: ">=2.3.0 <3"
     snappy: ^7.2.2
   dependenciesMeta:
     saslprep:
@@ -6283,26 +6285,30 @@ __metadata:
   peerDependenciesMeta:
     "@aws-sdk/credential-providers":
       optional: true
+    "@mongodb-js/zstd":
+      optional: true
+    kerberos:
+      optional: true
     mongodb-client-encryption:
       optional: true
     snappy:
       optional: true
-  checksum: 993c14299ade84d4aadb06f16dccf31502b1018bf7a813d2477bf7a465854d3545a8950372e4410cd549c4426cf02b5d18cc4467eba35d031b46536e5cc79e3f
+  checksum: 16357b6229abac165aecea15a6efa873ec8662a00411ecb9e49853f05a590be31aab63d404486125778eedaafe76d70e84eea682fa89b138decc247f4870d2ec
   languageName: node
   linkType: hard
 
-"mongoose@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "mongoose@npm:7.0.1"
+"mongoose@npm:^7.3.3":
+  version: 7.4.3
+  resolution: "mongoose@npm:7.4.3"
   dependencies:
-    bson: ^5.0.1
+    bson: ^5.4.0
     kareem: 2.5.1
-    mongodb: 5.1.0
+    mongodb: 5.7.0
     mpath: 0.9.0
     mquery: 5.0.0
     ms: 2.1.3
     sift: 16.0.1
-  checksum: edb14fcca1a425e916f7dc319e34fa12238d95b5b78a94c0ac69b560303080a6b54863941ed9de448adba26f8c51db33a83d9dc4af86f2b31a19423b4c50fae5
+  checksum: e92feec9e739fd429726b6b17ad0d5c05503d2786aa9605548e2b7e999f990a59bdf950e5cd44aa10e3936277410b4880e760e9e503627fae6c16b4901bf9c49
   languageName: node
   linkType: hard
 
@@ -6428,7 +6434,7 @@ __metadata:
     eslint-plugin-prettier: ^4.0.0
     ethers: 5.7.0
     jest: 29.3.1
-    mongoose: ^7.0.1
+    mongoose: ^7.3.3
     nestjs-pino: ^3.1.2
     pino-http: ^8.3.3
     prettier: ^2.3.2
@@ -7254,7 +7260,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.1.6#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>":
   version: 1.22.1
-  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=07638b"
+  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=c3c19d"
   dependencies:
     is-core-module: ^2.9.0
     path-parse: ^1.0.7
@@ -8192,11 +8198,11 @@ __metadata:
 
 "typescript@patch:typescript@4.9.5#~builtin<compat/typescript>, typescript@patch:typescript@^4.7.4#~builtin<compat/typescript>":
   version: 4.9.5
-  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=7ad353"
+  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=289587"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 2eee5c37cad4390385db5db5a8e81470e42e8f1401b0358d7390095d6f681b410f2c4a0c496c6ff9ebd775423c7785cdace7bcdad76c7bee283df3d9718c0f20
+  checksum: 1f8f3b6aaea19f0f67cba79057674ba580438a7db55057eb89cc06950483c5d632115c14077f6663ea76fd09fce3c190e6414bb98582ec80aa5a4eaf345d5b68
   languageName: node
   linkType: hard
 
